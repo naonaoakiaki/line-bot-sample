@@ -353,6 +353,13 @@ public class LineBotController {
                         )
                 ));
                 break;
+            case "ok":
+                log.info("Returns echo message {}: {}", replyToken, "google");
+                this.replyText(
+                        replyToken,
+                        text
+                );
+                break;
             default:
                 log.info("Returns echo message {}: {}", replyToken, text);
                 this.replyText(
