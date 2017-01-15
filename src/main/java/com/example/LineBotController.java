@@ -357,7 +357,7 @@ public class LineBotController {
                 log.info("Returns echo message {}: {}", replyToken, "google");
                 this.replyText(
                         replyToken,
-                        text
+                        "google"
                 );
                 break;
             default:
