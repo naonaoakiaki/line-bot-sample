@@ -353,6 +353,9 @@ public class LineBotController {
                         )
                 ));
                 break;
+            case "roominfo":
+                this.replyText(replyToken, "Room info " + event.getSource());
+                break;
             case "ok":
                 log.info("Returns echo message {}: {}", replyToken, "google");
                 this.replyText(
