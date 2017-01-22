@@ -6,10 +6,7 @@ import java.io.UncheckedIOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 import java.util.function.Consumer;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -223,15 +220,22 @@ public class LineBotController {
         );
     }
 
+    private String which(String text) {
+        String[] element = text.split(":", 0);
+        String[] words = element[1].split(",", 0);
+        Random random = new Random(1);
+        int i = random.nextInt(words.length);
+        return words[i];
+    }
+
     private void handleTextContent(String replyToken, Event event, TextMessageContent content)
             throws IOException {
         String text = content.getText();
         if(text.contains("which")) {
             log.info("Returns echo message {}: {}", replyToken, text);
-            String[] words = text.split(",", 0);
                 this.replyText(
                         replyToken,
-                        words[2]
+                        which(text);
                 );
 
         }
