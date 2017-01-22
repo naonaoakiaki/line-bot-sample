@@ -235,7 +235,7 @@ public class LineBotController {
             log.info("Returns echo message {}: {}", replyToken, text);
                 this.replyText(
                         replyToken,
-                        which(text);
+                        which(text)
                 );
 
         }
