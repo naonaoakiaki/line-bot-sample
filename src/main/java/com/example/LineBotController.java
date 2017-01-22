@@ -223,7 +223,7 @@ public class LineBotController {
     private String which(String text) {
         String[] element = text.split(":", 0);
         String[] words = element[1].split(",", 0);
-        Random random = new Random(1);
+        Random random = new Random();
         int i = random.nextInt(words.length);
         return words[i];
     }
