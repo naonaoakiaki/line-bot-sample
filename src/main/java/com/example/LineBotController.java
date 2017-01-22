@@ -226,8 +226,17 @@ public class LineBotController {
     private void handleTextContent(String replyToken, Event event, TextMessageContent content)
             throws IOException {
         String text = content.getText();
+        if(text.contains("which")) {
+            log.info("Returns echo message {}: {}", replyToken, text);
+            String[] words = text.split(",", 0);
+                this.replyText(
+                        replyToken,
+                        words[2]
+                );
 
-        log.info("Got text message from {}: {}", replyToken, text);
+        }
+
+            log.info("Got text message from {}: {}", replyToken, text);
         switch (text) {
             case "profile": {
                 String userId = event.getSource().getUserId();
@@ -365,10 +374,10 @@ public class LineBotController {
                 break;
             default:
                 log.info("Returns echo message {}: {}", replyToken, text);
-                this.replyText(
-                        replyToken,
-                        text
-                );
+//                this.replyText(
+//                        replyToken,
+//                        text
+//                );
                 break;
         }
     }
