@@ -74,8 +74,7 @@ public class LineBotController {
 
     private String pushRoom = "Rf6fe2324c7b95eeda8059ff0ccdad057";
 
-    @Value("${LINE_BOT_CHANNEL_TOKEN}")
-    private String channelAccessToken;
+    private String channelAccessToken = System.getenv().get("LINE_BOT_CHANNEL_TOKEN");;
 
     @Autowired
     private LineMessagingService lineMessagingService;
