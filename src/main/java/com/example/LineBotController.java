@@ -257,6 +257,10 @@ public class LineBotController {
             this.pushMassage(getPushMessage(text));
         }
 
+        if (text.contains("setRoom")) {
+            log.info("setRoom: {}", getPushMessage(text));
+            this.pushRoom = getPushMessage(text);
+        }
 
 
         log.info("Got text message from {}: {}", replyToken, text);
