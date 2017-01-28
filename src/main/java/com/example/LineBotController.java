@@ -235,6 +235,12 @@ public class LineBotController {
         return words[i];
     }
 
+    private String getPushMessage(String text) {
+        String[] element = text.split(":", 0);
+        return element[1];
+    }
+
+
     private void handleTextContent(String replyToken, Event event, TextMessageContent content)
             throws IOException {
         String text = content.getText();
@@ -246,8 +252,14 @@ public class LineBotController {
                 );
 
         }
+        if (text.contains("push")) {
+            log.info("Push process {}: {}", replyToken, "push");
+            this.pushMassage(getPushMessage(text));
+        }
 
-            log.info("Got text message from {}: {}", replyToken, text);
+
+
+        log.info("Got text message from {}: {}", replyToken, text);
         switch (text) {
             case "profile": {
                 String userId = event.getSource().getUserId();
@@ -383,11 +395,6 @@ public class LineBotController {
                         "google"
                 );
                 break;
-            case "push":
-                log.info("Push process {}: {}", replyToken, "push");
-                this.pushMassage("testMessage");
-                break;
-
             default:
                 log.info("Returns echo message {}: {}", replyToken, text);
 //                this.replyText(
