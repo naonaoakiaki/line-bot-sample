@@ -385,7 +385,7 @@ public class LineBotController {
                 );
                 break;
             case "push":
-                log.info("Returns echo message {}: {}", replyToken, "push");
+                log.info("Push process {}: {}", replyToken, "push");
                 this.pushMassage("testMessage");
                 break;
 
@@ -447,6 +447,7 @@ public class LineBotController {
     }
 
     private void pushMassage(String text) throws IOException {
+        log.info("Push process message:{} toRoom:{} accessToken", text, pushRoom, channelAccessToken);
         TextMessage textMessage = new TextMessage(text);
         PushMessage pushMessage = new PushMessage(
                 pushRoom,
