@@ -9,6 +9,8 @@ import java.time.LocalDateTime;
 import java.util.*;
 import java.util.function.Consumer;
 
+import com.linecorp.bot.client.LineMessagingServiceBuilder;
+import com.linecorp.bot.model.PushMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -69,6 +71,12 @@ import retrofit2.Response;
 @Slf4j
 @LineMessageHandler
 public class LineBotController {
+
+    private String pushRoom = "Rf6fe2324c7b95eeda8059ff0ccdad057";
+
+    @Value("${LINE_BOT_CHANNEL_TOKEN}")
+    private String channelAccessToken;
+
     @Autowired
     private LineMessagingService lineMessagingService;
 
@@ -376,6 +384,11 @@ public class LineBotController {
                         "google"
                 );
                 break;
+            case "push":
+                log.info("Returns echo message {}: {}", replyToken, "push");
+                this.pushMassage("testMessage");
+                break;
+
             default:
                 log.info("Returns echo message {}: {}", replyToken, text);
 //                this.replyText(
@@ -431,5 +444,21 @@ public class LineBotController {
     public static class DownloadedContent {
         Path path;
         String uri;
+    }
+
+    private void pushMassage(String text) throws IOException {
+        TextMessage textMessage = new TextMessage(text);
+        PushMessage pushMessage = new PushMessage(
+                pushRoom,
+                textMessage
+        );
+
+        Response<BotApiResponse> response =
+                LineMessagingServiceBuilder
+                        .create(channelAccessToken)
+                        .build()
+                        .pushMessage(pushMessage)
+                        .execute();
+        System.out.println(response.code() + " " + response.message());
     }
 }
